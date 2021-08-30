@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myapplicationtake100">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplicationTAKE100"
+        android:usesCleartextTraffic="true">
+        <activity android:name="Activities.ManagerPeopleActivity"></activity>
+        <activity android:name="Activities.ManagerJobActivity" />
+        <activity android:name="Activities.ManagerPage" />
+        <activity android:name="Activities.groupActivity" />
+        <activity android:name="Activities.addPersonActivity" />
+        <activity android:name=".jobTaskDescription" />
+        <activity
+            android:name=".ui.needDescription"
+            android:label="@string/title_activity_need_description"
+            android:theme="@style/Theme.MyApplicationTAKE100.NoActionBar" />
+        <activity
+            android:name="Activities.JobTaskActivity"
+            android:label="@string/title_activity_person_needs"
+            android:theme="@style/Theme.MyApplicationTAKE100.NoActionBar" />
+        <activity android:name="Activities.EmployeeActivity" />
+        <activity android:name="Activities.LoginScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="Activities.JobListPage" />
+    </application>
+
+</manifest>
