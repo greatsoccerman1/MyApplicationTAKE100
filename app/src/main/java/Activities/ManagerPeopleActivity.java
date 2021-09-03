@@ -1,5 +1,6 @@
 package Activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -71,8 +72,9 @@ public class ManagerPeopleActivity extends AppCompatActivity {
     public void setupAddMemberButton(Button addGroupMember){
         addGroupMember.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
+                Intent i = new Intent(ManagerPeopleActivity.this, addPersonActivity.class);
+                startActivity(i);
             }
-
         });
     }
 }

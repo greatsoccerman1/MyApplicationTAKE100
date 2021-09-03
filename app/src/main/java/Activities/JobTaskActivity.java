@@ -23,7 +23,7 @@ public class JobTaskActivity extends AppCompatActivity {
 
     //private ActivityPersonNeedsBinding binding;
 
-    private Button jobListButton, jobDescButton;
+    private Button jobListButton, jobDescButton, markJobCompleteButton;
     private String need;
     private ItemViewModel itemViewModel = null;
    // private Se
@@ -35,6 +35,7 @@ public class JobTaskActivity extends AppCompatActivity {
         itemViewModel = new ItemViewModel();
         jobListButton = findViewById(R.id.jobListButton);
         jobDescButton = findViewById(R.id.jobDescButton);
+        markJobCompleteButton = findViewById(R.id.completeJobButton);
 
         ArrayList<String> personNeeds = new ArrayList<>();
         jobListButton.setOnClickListener(new View.OnClickListener() {

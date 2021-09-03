@@ -30,6 +30,32 @@
         app:layout_constraintVertical_bias="0.447" />
 
     <Button
+        android:id="@+id/clockInOutBtn"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="Clock In/Out"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.543" />
+
+    <Button
+        android:id="@+id/inventoryButton"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="Inventory"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.638" />
+
+    <Button
         android:id="@+id/jobButton"
         android:layout_width="300dp"
         android:layout_height="50dp"

@@ -32,7 +32,7 @@ public class addPersonActivity extends AppCompatActivity {
         lastName = findViewById(R.id.addPersonLastName);
         firstName = findViewById(R.id.addPersonFirstName);
         //newPersonNeed = findViewById(R.id.addPersonNeed);
-        //addPersonBtn = findViewById(R.id.addPersonBtn);
+        addPersonBtn = findViewById(R.id.addPersonBtn);
         loadData();
         setAddPersonBtn(addPersonBtn);
 
@@ -61,7 +61,7 @@ public class addPersonActivity extends AppCompatActivity {
                 public void onResponse(Call<addPersonRequest> call, Response<addPersonRequest> response) {
                     if (!response.isSuccessful()) {
                     } else {
-                       Intent i = new Intent(addPersonActivity.this, JobListPage.class);
+                       Intent i = new Intent(addPersonActivity.this, addPersonActivity.class);
                        // i.putExtra("people", (Serializable) response.body());
                        startActivity(i);
                     }

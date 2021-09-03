@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplicationTAKE100"
         android:usesCleartextTraffic="true">
-        <activity android:name="Activities.ManagerPeopleActivity"></activity>
+        <activity
+            android:name=".register_new_account"
+            android:exported="true" />
+        <activity android:name="Activities.ManagerPeopleActivity" />
         <activity android:name="Activities.ManagerJobActivity" />
         <activity android:name="Activities.ManagerPage" />
         <activity android:name="Activities.groupActivity" />

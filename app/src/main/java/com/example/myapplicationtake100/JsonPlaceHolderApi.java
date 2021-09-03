@@ -2,6 +2,8 @@ package com.example.myapplicationtake100;
 
 import Models.JobTasksResponse;
 import Models.Jobs;
+import Models.RegisterNewAccountRequest;
+import Models.RegisterNewAccountResponse;
 import Models.RemoveNeed;
 import Models.addPersonRequest;
 import Models.getGroupMembersResponse;
@@ -36,4 +38,10 @@ public interface JsonPlaceHolderApi {
 
     @GET ("users/getGroupMembers/{groupId}")
     Call<getGroupMembersResponse> getGroupMembers(@Path("groupId") String groupId);
+
+    @POST ("user/markJobComplete/{mongoId}")
+    Call<RemoveNeed> markJobComplete(@Path("groupId") String groupId);
+
+    @POST ("users/registerNewAccount/")
+    Call<RegisterNewAccountResponse> addNewAccount(@Body RegisterNewAccountRequest registerNewAccountRequest);
 }

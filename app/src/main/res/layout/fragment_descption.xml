@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".JobDescptionFragment" >
 
+    <Button
+        android:id="@+id/completeJobButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Complete"
+        tools:layout_editor_absoluteX="224dp"
+        tools:layout_editor_absoluteY="26dp" />
+
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="300dp"
@@ -47,13 +55,13 @@
         android:layout_height="52dp"
         android:text="Edit"
         tools:layout_editor_absoluteX="33dp"
-        tools:layout_editor_absoluteY="73dp" />
+        tools:layout_editor_absoluteY="143dp" />
 
     <Button
         android:id="@+id/removeNeedButton"
         android:layout_width="121dp"
         android:layout_height="52dp"
         android:text="Remove"
-        tools:layout_editor_absoluteX="229dp"
-        tools:layout_editor_absoluteY="73dp" />
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="26dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

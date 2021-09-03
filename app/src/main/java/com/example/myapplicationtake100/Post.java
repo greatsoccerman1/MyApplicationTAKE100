@@ -23,7 +23,7 @@ public class Post {
         return userName;
     }
 
-    public int getUserId(){
+    public String getUserId(){
         return userId;
     }
 

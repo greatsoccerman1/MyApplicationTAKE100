@@ -27,7 +27,7 @@ public class JobDescptionFragment extends Fragment {
     TextView descriptionTV, nameTV, mongoIdTV;
 
     String task, taskDescription, taskMongoId;
-    Button removeButton, editButton;
+    Button removeButton, editButton, markJobCompleteButton;
     ArrayList<String> needsArrayList;
     public static final String SHARED_PREFS = "sharedPrefs";
 
@@ -40,6 +40,7 @@ public class JobDescptionFragment extends Fragment {
         mongoIdTV = v.findViewById(R.id.mongoIdTextView);
         removeButton = v.findViewById(R.id.removeNeedButton);
         editButton = v.findViewById(R.id.editButton);
+        markJobCompleteButton = v.findViewById(R.id.completeJobButton);
 
 
 
@@ -49,6 +50,15 @@ public class JobDescptionFragment extends Fragment {
                 removeDescription(taskMongoId);
             }
         });
+
+        removeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                markJobComplete(taskMongoId);
+            }
+        });
+
+
 
         return v;
     }
@@ -94,5 +104,34 @@ public class JobDescptionFragment extends Fragment {
         task = sharedPreferences.getString("task", "");
         taskDescription = sharedPreferences.getString("taskDescription", "");
         taskMongoId = sharedPreferences.getString("taskMongoId", "");
+    }
+
+    private void markJobComplete(String mongoId){
+        markJobCompleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://192.168.1.180:8080/demo/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+                Call<RemoveNeed> call = jsonPlaceHolderApi.markJobComplete(mongoId);
+                call.enqueue(new Callback<RemoveNeed>() {
+                    @Override
+                    public void onResponse(Call<RemoveNeed> call, Response<RemoveNeed> response) {
+                        if (response.isSuccessful()){
+
+                            ((JobTaskActivity)getActivity()).switchToOtherTab(new TaskListFragment());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<RemoveNeed> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
     }
 }

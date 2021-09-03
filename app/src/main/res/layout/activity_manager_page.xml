@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/jobBtn"
-        android:layout_width="254dp"
-        android:layout_height="39dp"
+        android:layout_width="255dp"
+        android:layout_height="41dp"
         android:text="Jobs"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,10 +25,22 @@
         android:text="People"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintHorizontal_bias="0.566"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jobBtn"
-        app:layout_constraintVertical_bias="0.159" />
+        app:layout_constraintVertical_bias="0.04" />
+
+    <Button
+        android:id="@+id/financeBtn"
+        android:layout_width="254dp"
+        android:layout_height="39dp"
+        android:text="Finances"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.306" />
 
     <Button
         android:id="@+id/button2"
