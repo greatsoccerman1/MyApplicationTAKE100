@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MyApplicationTAKE100"
         android:usesCleartextTraffic="true">
         <activity
+            android:name="Activities.AddJobActivity"
+            android:exported="true" />
+        <activity
             android:name=".register_new_account"
             android:exported="true" />
         <activity android:name="Activities.ManagerPeopleActivity" />

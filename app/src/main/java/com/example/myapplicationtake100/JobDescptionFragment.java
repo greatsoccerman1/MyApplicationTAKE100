@@ -77,7 +77,7 @@ public class JobDescptionFragment extends Fragment {
 
     private void removeDescription(String mongoId){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.180:8080/demo/")
+                .baseUrl("http://192.168.131.148:8080/demo/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -111,7 +111,7 @@ public class JobDescptionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://192.168.1.180:8080/demo/")
+                        .baseUrl("http://192.168.131.148:8080/demo/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 

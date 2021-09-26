@@ -37,31 +37,36 @@ public class groupActivity extends AppCompatActivity {
         String userId = getIntent().getExtras().get("userId").toString();
 
        //groupHashmap = (HashMap<String,String>)getIntent().getExtras().getSerializable("groups");
-
-       for (int i = 0; i < groupInfoList.size(); i++){
-           Button button = new Button(this);
-           button.setText(groupInfoList.get(i).getGroupName());
-           String ownerId = groupInfoList.get(i).getGroupOwnerId();
-           String groupId = groupInfoList.get(i).getGroupCode();
-           button.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   Intent i = null;
-                   if (userId.equals(ownerId)){
-                       isOwner = true;
-                        i = new Intent(groupActivity.this, ManagerPage.class);
-                   }else{
-                        isOwner = false;
-                       i = new Intent(groupActivity.this, EmployeeActivity.class);
-                   }
-                   i.putExtra("groupSelected", button.getText().toString());
-                   saveData(userId, groupId, isOwner);
-                   startActivity(i);
-                   //i.putExtra("groupSelectedCode", groupHashmap.get(key));
-               }
-           });
-           groupLayout.addView(button);
-       }
+        if (groupInfoList != null && groupInfoList.size() > 0) {
+            for (int i = 0; i < groupInfoList.size(); i++) {
+                Button button = new Button(this);
+                button.setText(groupInfoList.get(i).getGroupName());
+                String ownerId = groupInfoList.get(i).getGroupOwnerId();
+                String groupId = groupInfoList.get(i).getGroupCode();
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = null;
+                        if (userId.equals(ownerId)) {
+                            isOwner = true;
+                            i = new Intent(groupActivity.this, ManagerPage.class);
+                        } else {
+                            isOwner = false;
+                            i = new Intent(groupActivity.this, EmployeeActivity.class);
+                        }
+                        i.putExtra("groupSelected", button.getText().toString());
+                        saveData(userId, groupId, isOwner);
+                        startActivity(i);
+                        //i.putExtra("groupSelectedCode", groupHashmap.get(key));
+                    }
+                });
+                groupLayout.addView(button);
+            }
+        }else{
+            Button button = new Button(this);
+            button.setText("Have no group thing here");
+            groupLayout.addView(button);
+        }
     }
 
     public void saveData(String userId, String groupId, boolean isOwner){

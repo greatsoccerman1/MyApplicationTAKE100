@@ -40,7 +40,7 @@ public class LoginScreen extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://192.168.1.180:8080/demo/")
+                        .baseUrl("http://192.168.131.148:8080/demo/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 

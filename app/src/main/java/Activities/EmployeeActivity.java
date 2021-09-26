@@ -27,6 +27,7 @@ public class EmployeeActivity extends AppCompatActivity  {
     private Button addButton;
     private String userId, groupId;
     private TextView errorText;
+    private Button clockInOut;
 
     public static final String SHARED_PREFS = "sharedPrefs";
 
@@ -38,9 +39,20 @@ public class EmployeeActivity extends AppCompatActivity  {
         jobsButton = findViewById(R.id.jobButton);
         addButton = findViewById(R.id.addButton);
         errorText = findViewById(R.id.errorText);
+        clockInOut = findViewById(R.id.clockInOutBtn);
         setJobsButton(jobsButton);
         setAddButton(addButton);
+        setClockInOut(clockInOut);
         loadData();
+    }
+
+    private void setClockInOut(Button clockInOut) {
+        clockInOut.setOnClickListener(v -> {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://192.168.131.148:8080/demo/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        });
     }
 
     private void setAddButton(Button addButton){
@@ -50,7 +62,7 @@ public class EmployeeActivity extends AppCompatActivity  {
     private void setJobsButton(Button jobsButton){
         jobsButton.setOnClickListener(v -> {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.1.180:8080/demo/")
+                    .baseUrl("http://192.168.131.148:8080/demo/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 

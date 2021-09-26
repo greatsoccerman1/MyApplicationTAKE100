@@ -49,7 +49,7 @@ public class addPersonActivity extends AppCompatActivity {
             addPerson.setGroupId(groupId);
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.1.180:8080/demo/")
+                    .baseUrl("http://192.168.131.148:8080/demo/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 

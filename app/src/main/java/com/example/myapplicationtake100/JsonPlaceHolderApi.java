@@ -1,10 +1,12 @@
 package com.example.myapplicationtake100;
 
+import Models.AddJobResponse;
 import Models.JobTasksResponse;
 import Models.Jobs;
 import Models.RegisterNewAccountRequest;
 import Models.RegisterNewAccountResponse;
 import Models.RemoveNeed;
+import Models.AddJobRequest;
 import Models.addPersonRequest;
 import Models.getGroupMembersResponse;
 import retrofit2.Call;
@@ -44,4 +46,7 @@ public interface JsonPlaceHolderApi {
 
     @POST ("users/registerNewAccount/")
     Call<RegisterNewAccountResponse> addNewAccount(@Body RegisterNewAccountRequest registerNewAccountRequest);
+
+    @POST ("users/addNewJob/")
+    Call<AddJobResponse> addNewJob(@Body AddJobRequest addJobModelRequest);
 }

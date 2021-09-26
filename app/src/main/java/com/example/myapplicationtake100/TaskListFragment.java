@@ -2,6 +2,7 @@ package com.example.myapplicationtake100;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -86,7 +87,7 @@ public class TaskListFragment extends Fragment {
 
     public void populateJobLayout(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.180:8080/demo/")
+                .baseUrl("http://192.168.131.148:8080/demo/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -125,33 +126,42 @@ public class TaskListFragment extends Fragment {
 
     }
 
-    public void populateTask(JobTasksResponse resp){
-       // tasksScrollView = new LinearLayout(getContext());
-       for (int i =0; i < resp.getJobTasks().size(); i++){
-           Button button = new Button(getContext());
-           button.setText(resp.getJobTasks().get(i).getTask());
-           if (resp.getJobTasks().get(i).getJobStatus().equals("NotDone")){
-               button.setBackgroundResource(R.drawable.job_not_done_button_bg);
-           }else if(resp.getJobTasks().get(i).getJobStatus().equals("Done")){
-               button.setBackgroundResource(R.drawable.job_done_button_bg);
-           }else {
-               button.setBackgroundResource(R.drawable.my_button_bg);
-           }
+    public void populateTask(JobTasksResponse resp) {
+        tasksScrollView.removeAllViews();
+        // tasksScrollView = new LinearLayout(getContext());
+        if (resp.getJobTasks().size() > 0 && resp.getJobTasks() != null) {
+            for (int i = 0; i < resp.getJobTasks().size(); i++) {
+                Button button = new Button(getContext());
+                button.setText(resp.getJobTasks().get(i).getTask());
+                if (resp.getJobTasks().get(i).getJobStatus().equals("NotDone")) {
+                    button.setBackgroundResource(R.drawable.job_not_done_button_bg);
+                } else if (resp.getJobTasks().get(i).getJobStatus().equals("Done")) {
+                    button.setBackgroundResource(R.drawable.job_done_button_bg);
+                } else {
+                    button.setBackgroundResource(R.drawable.my_button_bg);
+                }
 
-           int finalI = i;
-           button.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   String task = resp.getJobTasks().get(finalI).getTask();
-                   String taskDescription = resp.getJobTasks().get(finalI).getTaskDescription();
-                   String taskMongoId = resp.getJobTasks().get(finalI).getTaskMongoId();
-                   saveData(task, taskDescription, taskMongoId);
-                   JobDescptionFragment frag = new JobDescptionFragment();
-                   ((JobTaskActivity) getActivity()).switchToOtherTab(frag);
+                int finalI = i;
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String task = resp.getJobTasks().get(finalI).getTask();
+                        String taskDescription = resp.getJobTasks().get(finalI).getTaskDescription();
+                        String taskMongoId = resp.getJobTasks().get(finalI).getTaskMongoId();
+                        saveData(task, taskDescription, taskMongoId);
+                        JobDescptionFragment frag = new JobDescptionFragment();
+                        ((JobTaskActivity) getActivity()).switchToOtherTab(frag);
 
-               }
-           });
-           tasksScrollView.addView(button);
+                    }
+                });
+                tasksScrollView.addView(button);
+            }
+        }else{
+            AlertDialog.Builder noTaskAlertDialog = new AlertDialog.Builder(getContext());
+            noTaskAlertDialog.setTitle("No Jobs");
+            noTaskAlertDialog.setMessage("There are not task assigned.");
+            AlertDialog alert1 =  noTaskAlertDialog.create();
+            alert1.show();
         }
     }
 }
