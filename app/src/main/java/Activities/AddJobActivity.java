@@ -1,13 +1,17 @@
 package Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
-import com.example.myapplicationtake100.*;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplicationtake100.JsonPlaceHolderApi;
+import com.example.myapplicationtake100.R;
 
 import Models.AddJobRequest;
 import Models.AddJobResponse;
@@ -20,7 +24,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AddJobActivity extends AppCompatActivity {
 
     private Button addJob;
-    private TextView jobName;
+    private TextView jobName, jobPrice;
+    private EditText refreshRateDaysView, refreshRateMonthsView;
+    private String groupId;
+    private int refreshRate, refreshRateDays, refreshRateMonths;
+    private Spinner refreshRateSpinner;
+    public static final String SHARED_PREFS = "sharedPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +37,11 @@ public class AddJobActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_job);
         jobName = findViewById(R.id.jobName);
         addJob = findViewById(R.id.addJobBtn);
-
+        jobPrice = findViewById(R.id.jobPriceTV);
+        refreshRateSpinner = findViewById(R.id.refreshRateSpinner);
+        refreshRateDaysView = findViewById(R.id.jobRefreshRateDays);
+        refreshRateMonthsView = findViewById(R.id.jobRefreshRateMonths);
+        loadData();
         setupAddJobBtn(addJob);
     }
 
@@ -37,13 +50,21 @@ public class AddJobActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://192.168.131.148:8080/demo/")
+                        .baseUrl("http://26.164.152.52:8080/demo/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
+
+                refreshRateDays = Integer.parseInt(refreshRateDaysView.getText().toString());
+                refreshRateMonths = Integer.parseInt(refreshRateMonthsView.getText().toString()) *30;
+
 
                 AddJobRequest addJobModel = new AddJobRequest();
 
                 addJobModel.setJobName(jobName.getText().toString());
+                addJobModel.setJobCost(Integer.parseInt(jobPrice.getText().toString()));
+                addJobModel.setRefreshRate(Integer.parseInt(refreshRateDaysView.getText().toString()));
+                addJobModel.setGroupId(groupId);
+
 
                 JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
@@ -55,7 +76,7 @@ public class AddJobActivity extends AppCompatActivity {
 
                         }else{
                             //Post posts = response.body();
-
+                            finish();
                         }
                     }
 
@@ -66,5 +87,10 @@ public class AddJobActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        groupId = sharedPreferences.getString("groupId", "");
     }
 }

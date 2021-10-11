@@ -1,5 +1,7 @@
 package Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -63,9 +65,18 @@ public class groupActivity extends AppCompatActivity {
                 groupLayout.addView(button);
             }
         }else{
-            Button button = new Button(this);
-            button.setText("Have no group thing here");
-            groupLayout.addView(button);
+            AlertDialog.Builder noTaskAlertDialog = new AlertDialog.Builder(this);
+            noTaskAlertDialog.setTitle("No Jobs");
+            noTaskAlertDialog.setMessage("There are no task assigned.");
+            noTaskAlertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    closeDialog();
+                }
+            });
+            AlertDialog alert1 =  noTaskAlertDialog.create();
+
+            alert1.show();
         }
     }
 
@@ -78,5 +89,10 @@ public class groupActivity extends AppCompatActivity {
 
         editor.apply();
         Toast.makeText(this, "Data Saved", Toast.LENGTH_SHORT).show();
+    }
+
+    private void closeDialog() {
+        Intent i = new Intent(this, ManagerPage.class);
+        startActivity(i);
     }
 }

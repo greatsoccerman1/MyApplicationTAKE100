@@ -3,6 +3,8 @@ package com.example.myapplicationtake100;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,7 +19,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import Activities.AddTaskActivity;
 import Activities.JobTaskActivity;
+import Models.GetTasksRequest;
 import Models.JobTasks;
 import Models.JobTasksResponse;
 import retrofit2.Call;
@@ -87,15 +91,19 @@ public class TaskListFragment extends Fragment {
 
     public void populateJobLayout(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.131.148:8080/demo/")
+                .baseUrl("http://26.164.152.52:8080/demo/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
         if (isOwner){
-            userId = "00";
+         //   userId = "00";
         }
-        Call<JobTasksResponse> call = jsonPlaceHolderApi.getTasks(groupId, userId);
+
+        GetTasksRequest getTasksRequest = new GetTasksRequest();
+        getTasksRequest.setJobId(getActivity().getIntent().getExtras().getString("jobId"));
+        getTasksRequest.setUserId(userId);
+        Call<JobTasksResponse> call = jsonPlaceHolderApi.getTasks(getTasksRequest);
         call.enqueue(new Callback<JobTasksResponse>() {
             @Override
             public void onResponse(Call<JobTasksResponse> call, Response<JobTasksResponse> response) {
@@ -133,9 +141,9 @@ public class TaskListFragment extends Fragment {
             for (int i = 0; i < resp.getJobTasks().size(); i++) {
                 Button button = new Button(getContext());
                 button.setText(resp.getJobTasks().get(i).getTask());
-                if (resp.getJobTasks().get(i).getJobStatus().equals("NotDone")) {
+                if (resp.getJobTasks().get(i).getTaskStatus().equals("NotDone")) {
                     button.setBackgroundResource(R.drawable.job_not_done_button_bg);
-                } else if (resp.getJobTasks().get(i).getJobStatus().equals("Done")) {
+                } else if (resp.getJobTasks().get(i).getTaskStatus().equals("Done")) {
                     button.setBackgroundResource(R.drawable.job_done_button_bg);
                 } else {
                     button.setBackgroundResource(R.drawable.my_button_bg);
@@ -159,10 +167,22 @@ public class TaskListFragment extends Fragment {
         }else{
             AlertDialog.Builder noTaskAlertDialog = new AlertDialog.Builder(getContext());
             noTaskAlertDialog.setTitle("No Jobs");
-            noTaskAlertDialog.setMessage("There are not task assigned.");
+            noTaskAlertDialog.setMessage("There are no task assigned.");
+            noTaskAlertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    closeDialog();
+                }
+            });
             AlertDialog alert1 =  noTaskAlertDialog.create();
+
             alert1.show();
         }
+    }
+
+    private void closeDialog() {
+        Intent i = new Intent(getActivity().getApplicationContext(), AddTaskActivity.class);
+        startActivity(i);
     }
 }
 

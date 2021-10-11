@@ -19,5 +19,6 @@ public class RegisterNewAccountRequest {
     private String lastName;
     private String password;
     private String reqStatus;
+    private String userName;
 
 }

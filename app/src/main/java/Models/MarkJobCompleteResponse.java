@@ -1,8 +1,5 @@
 package Models;
 
-import java.io.Serializable;
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,8 +13,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Jobs implements Serializable {
+public class MarkJobCompleteResponse {
 
-    private List<JobsModel> jobInfo;
-
+    private String status;
 }

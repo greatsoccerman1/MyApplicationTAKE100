@@ -26,6 +26,7 @@ public class LoginScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login_screen);
 
         TextView userNameView = findViewById(R.id.userNameText);
@@ -34,13 +35,12 @@ public class LoginScreen extends AppCompatActivity {
         Button loginButton = findViewById(R.id.loginButton);
         TextView registerButton = findViewById(R.id.registerTextButton);
 
-
         setupTextFieldClear(userNameView);
         setupTextFieldClear(passwordView);
         loginButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://192.168.131.148:8080/demo/")
+                        .baseUrl("http://26.164.152.52:8080/demo/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
@@ -73,8 +73,8 @@ public class LoginScreen extends AppCompatActivity {
         });
 
         setupRegisterbutton(registerButton);
-        userNameView.setText("abc");
-        passwordView.setText("123");
+        userNameView.setText("1");
+        passwordView.setText("1");
     }
 
     @Override

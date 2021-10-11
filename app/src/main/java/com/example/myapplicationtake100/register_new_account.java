@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class register_new_account extends AppCompatActivity {
 
-    TextView groupName, firstName, lastName, password, confirmPassword, warningTextView;
+    TextView groupName, firstName, lastName, password, confirmPassword, warningTextView, userName;
     Button submitButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,7 @@ public class register_new_account extends AppCompatActivity {
         firstName = findViewById(R.id.registerFirstName);
         lastName = findViewById(R.id.registerLastName);
         password = findViewById(R.id.registerPassword);
+        userName = findViewById(R.id.userNameTextView);
         confirmPassword = findViewById(R.id.registerConfirmPassword);
         submitButton = findViewById(R.id.registerSubmitButton);
         warningTextView = findViewById(R.id.warningTextView);
@@ -40,7 +41,7 @@ public class register_new_account extends AppCompatActivity {
             submitButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://192.168.131.148:8080/demo/")
+                            .baseUrl("http://26.164.152.52:8080/demo/")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
 
@@ -50,6 +51,7 @@ public class register_new_account extends AppCompatActivity {
                     registerNewAccountReq.setGroupName(groupName.getText().toString());
                     registerNewAccountReq.setFirstName(firstName.getText().toString());
                     registerNewAccountReq.setPassword(password.getText().toString());
+                    registerNewAccountReq.setUserName(userName.getText().toString());
 
                     Call<RegisterNewAccountResponse> call = jsonPlaceHolderApi.addNewAccount(registerNewAccountReq);
                     call.enqueue(new Callback<RegisterNewAccountResponse>() {

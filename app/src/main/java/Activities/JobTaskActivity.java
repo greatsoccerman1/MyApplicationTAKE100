@@ -1,6 +1,7 @@
 package Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,13 +11,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.myapplicationtake100.JobDescptionFragment;
+import com.example.myapplicationtake100.JsonPlaceHolderApi;
 import com.example.myapplicationtake100.R;
 import com.example.myapplicationtake100.TaskListFragment;
 
 import java.util.ArrayList;
 
 import Models.ItemViewModel;
+import Models.MarkJobCompleteRequest;
+import Models.MarkJobCompleteResponse;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 //import com.example.myapplicationtake100.databinding.ActivityPersonNeedsBinding;
 
@@ -24,9 +32,10 @@ public class JobTaskActivity extends AppCompatActivity {
 
     //private ActivityPersonNeedsBinding binding;
 
-    private Button jobListButton, addJobButton, markJobCompleteButton;
-    private String need;
+    private Button jobListButton, addTaskButton;
+    private String need, jobId, groupId, mongoId;
     private ItemViewModel itemViewModel = null;
+    public static final String SHARED_PREFS = "sharedPrefs";
    // private Se
 
     @Override
@@ -35,8 +44,7 @@ public class JobTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_task_list);
         itemViewModel = new ItemViewModel();
         jobListButton = findViewById(R.id.jobListButton);
-        addJobButton = findViewById(R.id.addJobButton);
-        markJobCompleteButton = findViewById(R.id.completeJobButton);
+        addTaskButton = findViewById(R.id.addTaskBtn);
 
         ArrayList<String> personNeeds = new ArrayList<>();
         jobListButton.setOnClickListener(new View.OnClickListener() {
@@ -46,16 +54,46 @@ public class JobTaskActivity extends AppCompatActivity {
             }
         });
 
-        addJobButton.setOnClickListener(new View.OnClickListener() {
+        addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(JobTaskActivity.this, AddJobActivity.class);
+                Intent i = new Intent(JobTaskActivity.this, AddTaskActivity.class);
                 startActivity(i);
 
             }
         });
-
         //switchToOtherTab(new TaskListFragment());
+    }
+
+    private void markJobComplete() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://26.164.152.52:8080/demo/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        MarkJobCompleteRequest markJobCompleteRequest = new MarkJobCompleteRequest();
+        markJobCompleteRequest.setJobId(jobId);
+        markJobCompleteRequest.setGroupId(groupId);
+        markJobCompleteRequest.setMongoId(mongoId);
+
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+        Call<MarkJobCompleteResponse> call = jsonPlaceHolderApi.markJobComplete(markJobCompleteRequest);
+        call.enqueue(new Callback<MarkJobCompleteResponse>() {
+            @Override
+            public void onResponse(Call<MarkJobCompleteResponse> call, Response<MarkJobCompleteResponse> response) {
+                if (!response.isSuccessful()){
+
+                }else{
+                    //Post posts = response.body();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MarkJobCompleteResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     public void switchToOtherTab(Fragment frag){
@@ -74,4 +112,10 @@ public class JobTaskActivity extends AppCompatActivity {
     }
 
 
+    public void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        jobId = sharedPreferences.getString("jobId", "");
+        groupId = sharedPreferences.getString("groupId", "");
+        mongoId = sharedPreferences.getString("mongoId", "");
+    }
 }

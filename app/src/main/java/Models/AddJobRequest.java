@@ -16,5 +16,8 @@ import lombok.ToString;
 
 public class AddJobRequest {
     private String jobName;
+    private String groupId;
     private String address;
+    private int jobCost;
+    private int refreshRate;
 }

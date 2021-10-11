@@ -26,7 +26,7 @@ public class ManagerJobActivity extends AppCompatActivity {
         loadData();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.131.148:8080/demo/")
+                .baseUrl("http://26.164.152.52:8080/demo/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
