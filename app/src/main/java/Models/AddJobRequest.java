@@ -20,4 +20,5 @@ public class AddJobRequest {
     private String address;
     private int jobCost;
     private int refreshRate;
+    private String jobStatus;
 }

@@ -16,5 +16,5 @@ import lombok.ToString;
 public class MarkJobCompleteRequest {
     private String jobId;
     private String groupId;
-    private String mongoId;
+    private int refreshRate;
 }

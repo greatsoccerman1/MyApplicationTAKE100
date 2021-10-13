@@ -28,7 +28,7 @@ public class AddJobActivity extends AppCompatActivity {
     private EditText refreshRateDaysView, refreshRateMonthsView;
     private String groupId;
     private int refreshRate, refreshRateDays, refreshRateMonths;
-    private Spinner refreshRateSpinner;
+    private Spinner refreshRateSpinner, jobStatusSpinner;
     public static final String SHARED_PREFS = "sharedPrefs";
 
     @Override
@@ -41,6 +41,7 @@ public class AddJobActivity extends AppCompatActivity {
         refreshRateSpinner = findViewById(R.id.refreshRateSpinner);
         refreshRateDaysView = findViewById(R.id.jobRefreshRateDays);
         refreshRateMonthsView = findViewById(R.id.jobRefreshRateMonths);
+        jobStatusSpinner = findViewById(R.id.jobStatusSpinner);
         loadData();
         setupAddJobBtn(addJob);
     }
@@ -54,15 +55,23 @@ public class AddJobActivity extends AppCompatActivity {
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
-                refreshRateDays = Integer.parseInt(refreshRateDaysView.getText().toString());
-                refreshRateMonths = Integer.parseInt(refreshRateMonthsView.getText().toString()) *30;
+                if (!(refreshRateDaysView.equals("0") || refreshRateDaysView == null) && !(refreshRateMonthsView.equals("0") || refreshRateMonthsView == null)){
+                    refreshRateDays = Integer.parseInt(refreshRateDaysView.getText().toString());
+                    refreshRateMonths = Integer.parseInt(refreshRateMonthsView.getText().toString()) *30;
+                }else{
+                    refreshRateDays = 0;
+                    refreshRateMonths = 0;
+                }
+
+                refreshRate = refreshRateDays + refreshRateMonths;
 
 
                 AddJobRequest addJobModel = new AddJobRequest();
 
                 addJobModel.setJobName(jobName.getText().toString());
                 addJobModel.setJobCost(Integer.parseInt(jobPrice.getText().toString()));
-                addJobModel.setRefreshRate(Integer.parseInt(refreshRateDaysView.getText().toString()));
+                addJobModel.setRefreshRate(refreshRate);
+                addJobModel.setJobStatus(jobStatusSpinner.getSelectedItem().toString());
                 addJobModel.setGroupId(groupId);
 
 

@@ -46,7 +46,7 @@ public class LoginScreen extends AppCompatActivity {
 
                 JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
-                Call<Post> call = jsonPlaceHolderApi.getPosts( userNameView.getText().toString(), passwordView.getText().toString());
+                Call<Post> call = jsonPlaceHolderApi.getLogin( userNameView.getText().toString(), passwordView.getText().toString());
                 call.enqueue(new Callback<Post>() {
                     @Override
                     public void onResponse(Call<Post> call, Response<Post> response) {

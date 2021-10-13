@@ -35,6 +35,7 @@ public class JobListPage extends AppCompatActivity {
     private String whichButtonIsClicked = "None";
     public static final String SHARED_PREFS = "sharedPrefs";
     private Button addJobBtn, markJobCompleteBtn;
+    private int refreshRate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,22 +108,32 @@ public class JobListPage extends AppCompatActivity {
         //populating buttons with job names
         for (int i = 0; i < jobs.getJobInfo().size(); i++){
             String jobName = jobs.getJobInfo().get(i).getJobName();
-            String mongoId = jobs.getJobInfo().get(i).getJobMongoId();
+            int refreshRate = jobs.getJobInfo().get(i).getRefreshRate();
             String jobId = jobs.getJobInfo().get(i).getJobId();
+            String jobStatus = jobs.getJobInfo().get(i).getJobStatus();
             Button jobButton = new Button(this);
+
+            if (jobStatus.equals("NOT DONE")) {
+                jobButton.setBackgroundResource(R.drawable.job_not_done_button_bg);
+            } else if (jobStatus.equals("DONE")) {
+                jobButton.setBackgroundResource(R.drawable.job_done_button_bg);
+            } else {
+                jobButton.setBackgroundResource(R.drawable.my_button_bg);
+            }
+
             jobButton.setOnClickListener(new View.OnClickListener() {
                 List<Jobs> jobs = new ArrayList<>();
                 @Override
                 public void onClick(View v) {
                     switch (whichButtonIsClicked) {
                         case "None":
-                            noButtonsClicked(jobName, mongoId, jobId);
+                            noButtonsClicked(jobName, refreshRate, jobId);
                             break;
                         case "MarkComplete":
-                            markJobComplete(jobId, mongoId);
+                            markJobComplete(jobId, refreshRate);
                             break;
                         case "MarkNeedsWork":
-                            markNeedsWork(jobId, mongoId);
+                            markNeedsWork(jobId);
                             break;
                     }
                 }
@@ -132,11 +143,11 @@ public class JobListPage extends AppCompatActivity {
         }
     }
 
-    private void markNeedsWork(String jobId, String mongoId){
+    private void markNeedsWork(String jobId){
 
     }
 
-    private void markJobComplete(String jobId, String mongoId) {
+    private void markJobComplete(String jobId, int refreshRate) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://26.164.152.52:8080/demo/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -145,7 +156,7 @@ public class JobListPage extends AppCompatActivity {
         MarkJobCompleteRequest markJobCompleteRequest = new MarkJobCompleteRequest();
         markJobCompleteRequest.setJobId(jobId);
         markJobCompleteRequest.setGroupId(groupId);
-        markJobCompleteRequest.setMongoId(mongoId);
+        markJobCompleteRequest.setRefreshRate(refreshRate);
 
         JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
         Call<MarkJobCompleteResponse> call = jsonPlaceHolderApi.markJobComplete(markJobCompleteRequest);
@@ -167,11 +178,11 @@ public class JobListPage extends AppCompatActivity {
         });
     }
 
-    private void noButtonsClicked(String jobName, String mongoId, String jobId){
+    private void noButtonsClicked(String jobName, int refreshRate, String jobId){
         Intent descriptionIntent = new Intent(JobListPage.this, JobTaskActivity.class);
         //  descriptionIntent.putExtra("jobTaskDescription", needsDescriptionMap);
         descriptionIntent.putExtra("jobName", jobName);
-        descriptionIntent.putExtra("mongoId", mongoId);
+        descriptionIntent.putExtra("refreshRate", refreshRate);
         descriptionIntent.putExtra("jobId", jobId);
         saveData(jobId);
         startActivity(descriptionIntent);

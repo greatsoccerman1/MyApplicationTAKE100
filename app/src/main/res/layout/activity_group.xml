@@ -8,7 +8,25 @@
 
     <LinearLayout
         android:id="@+id/groupLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"></LinearLayout>
+        android:layout_width="407dp"
+        android:layout_height="523dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"></LinearLayout>
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="118dp"
+        android:layout_height="55dp"
+        android:text="Groups"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toBottomOf="@+id/groupLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.054" />
 </androidx.constraintlayout.widget.ConstraintLayout>

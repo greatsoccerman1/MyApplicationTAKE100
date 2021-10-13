@@ -20,4 +20,10 @@
         <item>Every</item>
         <item>Every Other</item>
     </string-array>
+
+    <string-array name="job_status_array">
+        <item>None</item>
+        <item>NOT DONE</item>
+        <item>DONE</item>
+    </string-array>
 </resources>

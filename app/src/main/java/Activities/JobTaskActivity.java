@@ -33,7 +33,8 @@ public class JobTaskActivity extends AppCompatActivity {
     //private ActivityPersonNeedsBinding binding;
 
     private Button jobListButton, addTaskButton;
-    private String need, jobId, groupId, mongoId;
+    private String need, jobId, groupId;
+    private int refreshRate;
     private ItemViewModel itemViewModel = null;
     public static final String SHARED_PREFS = "sharedPrefs";
    // private Se
@@ -74,7 +75,7 @@ public class JobTaskActivity extends AppCompatActivity {
         MarkJobCompleteRequest markJobCompleteRequest = new MarkJobCompleteRequest();
         markJobCompleteRequest.setJobId(jobId);
         markJobCompleteRequest.setGroupId(groupId);
-        markJobCompleteRequest.setMongoId(mongoId);
+        markJobCompleteRequest.setRefreshRate(refreshRate);
 
         JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
         Call<MarkJobCompleteResponse> call = jsonPlaceHolderApi.markJobComplete(markJobCompleteRequest);
@@ -116,6 +117,6 @@ public class JobTaskActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         jobId = sharedPreferences.getString("jobId", "");
         groupId = sharedPreferences.getString("groupId", "");
-        mongoId = sharedPreferences.getString("mongoId", "");
+       // refreshRate = sharedPreferences.getString("mongoId", "");
     }
 }

@@ -20,5 +20,6 @@ import lombok.ToString;
 public class JobsModel extends ViewModel implements Serializable {
     private String jobName;
     private String jobId;
-    private String jobMongoId;
+    private int refreshRate;
+    private String jobStatus;
 }

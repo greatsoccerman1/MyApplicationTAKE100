@@ -28,7 +28,7 @@ public interface JsonPlaceHolderApi {
             @Path("password") String password);*/
 
     @GET("users/{username}/{password}")
-        Call<Post> getPosts(@Path("username") String userName, @Path("password") String password);
+        Call<Post> getLogin(@Path("username") String userName, @Path("password") String password);
 
     @GET("users/jobs/{groupId}/{personId}")
     Call<Jobs> getJobs(@Path("groupId") String groupId, @Path("personId") String personId);
