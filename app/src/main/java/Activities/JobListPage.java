@@ -70,7 +70,7 @@ public class JobListPage extends AppCompatActivity {
 
     public void populateJobLayout(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://26.164.152.52:8080/demo/")
+                .baseUrl("http://demoapp.hopto.org:8443/demo/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -130,7 +130,7 @@ public class JobListPage extends AppCompatActivity {
                             noButtonsClicked(jobName, refreshRate, jobId);
                             break;
                         case "MarkComplete":
-                            markJobComplete(jobId, refreshRate);
+                            markJobComplete(jobId, refreshRate, jobButton);
                             break;
                         case "MarkNeedsWork":
                             markNeedsWork(jobId);
@@ -147,9 +147,9 @@ public class JobListPage extends AppCompatActivity {
 
     }
 
-    private void markJobComplete(String jobId, int refreshRate) {
+    private void markJobComplete(String jobId, int refreshRate, Button jobButton) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://26.164.152.52:8080/demo/")
+                .baseUrl("http://demoapp.hopto.org:8443/demo/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -167,7 +167,7 @@ public class JobListPage extends AppCompatActivity {
 
                 }else{
                     //Post posts = response.body();
-
+                    jobButton.setBackgroundResource(R.drawable.job_done_button_bg);
                 }
             }
 

@@ -41,7 +41,7 @@ public class register_new_account extends AppCompatActivity {
             submitButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://26.164.152.52:8080/demo/")
+                            .baseUrl("http://demoapp.hopto.org:8443/demo/")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
 

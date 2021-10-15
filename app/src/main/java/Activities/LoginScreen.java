@@ -40,7 +40,7 @@ public class LoginScreen extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://26.164.152.52:8080/demo/")
+                        .baseUrl("http://demoapp.hopto.org:8443/demo/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
@@ -112,10 +112,10 @@ public class LoginScreen extends AppCompatActivity {
         });
     }
 
-    public void saveData(String groupId){
+    public void saveData(String userId){
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("groupId", groupId);
+        editor.putString("userId", userId);
         //editor.putString("userId", userId);
         editor.apply();
     }
