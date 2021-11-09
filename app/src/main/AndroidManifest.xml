@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MyApplicationTAKE100"
         android:usesCleartextTraffic="true">
         <activity
+            android:name="Activities.InventoryActivity"
+            android:exported="true" />
+        <activity
             android:name="Activities.AddTaskActivity"
             android:exported="true" />
         <activity

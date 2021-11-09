@@ -11,6 +11,7 @@
         <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/activity_add_person.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/activity_add_task.xml" value="0.2703804347826087" />
         <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/activity_group.xml" value="0.22" />
+        <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/activity_inventory.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/activity_job_list.xml" value="0.22" />
         <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/activity_login_screen.xml" value="0.22" />
         <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/activity_main.xml" value="0.5" />
@@ -19,9 +20,10 @@
         <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/activity_manager_people.xml" value="0.22" />
         <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/activity_person_needs.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/activity_register_new_account.xml" value="0.30434782608695654" />
-        <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/activity_task_list.xml" value="0.22" />
+        <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/activity_task_list.xml" value="0.25" />
         <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/fragment_descption.xml" value="0.33" />
         <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/fragment_group_members_list.xml" value="0.209375" />
+        <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/fragment_job_info.xml" value="0.33" />
         <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/fragment_people_list.xml" value="0.36367753623188404" />
         <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/fragment_person_description.xml" value="0.25" />
         <entry key="..\:/Users/Curtis/Downloads/MyApplicationTAKE100/app/src/main/res/layout/fragment_person_needs.xml" value="0.20260416666666667" />

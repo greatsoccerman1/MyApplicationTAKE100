@@ -104,7 +104,7 @@
         app:layout_constraintVertical_bias="0.122" />
 
     <EditText
-        android:id="@+id/jobPriceTV"
+        android:id="@+id/priceTV"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:ems="10"

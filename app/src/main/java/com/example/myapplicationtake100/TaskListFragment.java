@@ -34,7 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TaskListFragment extends Fragment {
 
     private LinearLayout tasksScrollView;
-    private String userId, groupId;
+    private String userId, groupId, jobId;
     private Boolean isOwner;
     private ArrayList<String> needsArrayList;
     private HashMap<String, String> descriptionNeedMap;
@@ -46,7 +46,7 @@ public class TaskListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_person_needs, container, false);
         tasksScrollView =  v.findViewById(R.id.groupMemberListLayout);
-        needsArrayList = getActivity().getIntent().getExtras().getStringArrayList("personNeeds");
+//        needsArrayList = getActivity().getIntent().getExtras().getStringArrayList("personNeeds");
         descriptionNeedMap = new HashMap<>();
         jobForDescription = (List<JobTasks>) getActivity().getIntent().getSerializableExtra("jobForDescription");
         loadData();
@@ -91,7 +91,7 @@ public class TaskListFragment extends Fragment {
 
     public void populateJobLayout(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://demoapp.hopto.org:8443/demo/")
+                .baseUrl("http://192.168.1.146:8080/demo-0.0.1-SNAPSHOT/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -101,7 +101,7 @@ public class TaskListFragment extends Fragment {
         }
 
         GetTasksRequest getTasksRequest = new GetTasksRequest();
-        getTasksRequest.setJobId(getActivity().getIntent().getExtras().getString("jobId"));
+        getTasksRequest.setJobId(jobId);
         getTasksRequest.setUserId(userId);
         Call<JobTasksResponse> call = jsonPlaceHolderApi.getTasks(getTasksRequest);
         call.enqueue(new Callback<JobTasksResponse>() {
@@ -131,6 +131,7 @@ public class TaskListFragment extends Fragment {
         userId = sharedPreferences.getString("userId", "");
         groupId = sharedPreferences.getString("groupId", "");
         isOwner = sharedPreferences.getBoolean("isOwner", false);
+        jobId = sharedPreferences.getString("jobId", "");
 
     }
 

@@ -1,17 +1,17 @@
 package Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.myapplicationtake100.R;
 
 public class ManagerPage extends AppCompatActivity {
 
-    Button peopleButton, jobButton;
+    Button peopleButton, jobButton, inventoryBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,9 +19,20 @@ public class ManagerPage extends AppCompatActivity {
 
         peopleButton = findViewById(R.id.peopleBtn);
         jobButton = findViewById(R.id.jobBtn);
+        inventoryBtn = findViewById(R.id.inventoryBtn);
 
         setupJobButton(jobButton);
         setupPersonButton(peopleButton);
+        setupInventoryButton(inventoryBtn);
+    }
+
+    private void setupInventoryButton(Button inventoryBtn) {
+        inventoryBtn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent i = new Intent(ManagerPage.this, InventoryActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     public void setupJobButton(Button jobButton){

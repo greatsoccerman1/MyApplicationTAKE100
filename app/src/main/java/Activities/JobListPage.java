@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplicationtake100.JsonPlaceHolderApi;
 import com.example.myapplicationtake100.R;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.List;
 import Models.Jobs;
 import Models.MarkJobCompleteRequest;
 import Models.MarkJobCompleteResponse;
+import Models.RemoveJobResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,27 +36,44 @@ public class JobListPage extends AppCompatActivity {
     private boolean isOwner = false;
     private String whichButtonIsClicked = "None";
     public static final String SHARED_PREFS = "sharedPrefs";
-    private Button addJobBtn, markJobCompleteBtn;
+    private Button addJobBtn, markJobCompleteBtn, removeJobBtn, markJobIncompleteBtn;
     private int refreshRate;
+    private BigDecimal jobPrice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_list);
         addJobBtn = findViewById(R.id.addJobButton);
         markJobCompleteBtn = findViewById(R.id.markJobCompleteBtn);
+        removeJobBtn = findViewById(R.id.removeJobButton);
+        markJobIncompleteBtn = findViewById(R.id.markJobInCompleteBtn);
         loadData();
         setupAddJobBtn(addJobBtn);
-        setupMarkCompleteBtn(markJobCompleteBtn);
+        setupMarkCompleteBtn(markJobCompleteBtn, markJobIncompleteBtn);
+        setupJobInCompleteBtn(markJobIncompleteBtn, markJobCompleteBtn);
         populateJobLayout();
+        setupRemoveJobBtn(removeJobBtn);
 
     }
 
-    private void setupMarkCompleteBtn(Button markJobCompleteBtn) {
+    private void setupJobInCompleteBtn(Button markJobIncompleteBtn, Button markJobCompleteBtn) {
+        markJobCompleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                whichButtonIsClicked = "MarkInComplete";
+                markJobIncompleteBtn.setBackgroundColor(Color.argb(255, 0,255,0));
+                markJobCompleteBtn.setBackgroundColor(Color.argb(255, 255,0,255));
+            }
+        });
+    }
+
+    private void setupMarkCompleteBtn(Button markJobCompleteBtn, Button markJobIncompleteBtn) {
         markJobCompleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
               whichButtonIsClicked = "MarkComplete";
               markJobCompleteBtn.setBackgroundColor(Color.argb(255, 0,255,0));
+              markJobIncompleteBtn.setBackgroundColor(Color.argb(255, 255,0,255));
             }
         });
     }
@@ -68,9 +87,13 @@ public class JobListPage extends AppCompatActivity {
         });
     }
 
+    private void setupRemoveJobBtn(Button removeJobBtn){
+       // whichButtonIsClicked = "RemoveJob";
+    }
+
     public void populateJobLayout(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://demoapp.hopto.org:8443/demo/")
+                .baseUrl("http://192.168.1.146:8080/demo-0.0.1-SNAPSHOT/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -111,6 +134,7 @@ public class JobListPage extends AppCompatActivity {
             int refreshRate = jobs.getJobInfo().get(i).getRefreshRate();
             String jobId = jobs.getJobInfo().get(i).getJobId();
             String jobStatus = jobs.getJobInfo().get(i).getJobStatus();
+            jobPrice = jobs.getJobInfo().get(i).getJobPrice();
             Button jobButton = new Button(this);
 
             if (jobStatus.equals("NOT DONE")) {
@@ -127,7 +151,7 @@ public class JobListPage extends AppCompatActivity {
                 public void onClick(View v) {
                     switch (whichButtonIsClicked) {
                         case "None":
-                            noButtonsClicked(jobName, refreshRate, jobId);
+                            noButtonsClicked(jobName, refreshRate, jobId, jobPrice, jobStatus);
                             break;
                         case "MarkComplete":
                             markJobComplete(jobId, refreshRate, jobButton);
@@ -135,6 +159,10 @@ public class JobListPage extends AppCompatActivity {
                         case "MarkNeedsWork":
                             markNeedsWork(jobId);
                             break;
+                   /*     case "RemoveJob":
+                            removeJob(groupId, jobId);
+                            jobButton.setVisibility(View.GONE);
+                            break;*/
                     }
                 }
             });
@@ -149,7 +177,7 @@ public class JobListPage extends AppCompatActivity {
 
     private void markJobComplete(String jobId, int refreshRate, Button jobButton) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://demoapp.hopto.org:8443/demo/")
+                .baseUrl("http://192.168.1.146:8080/demo-0.0.1-SNAPSHOT/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -163,9 +191,9 @@ public class JobListPage extends AppCompatActivity {
         call.enqueue(new Callback<MarkJobCompleteResponse>() {
             @Override
             public void onResponse(Call<MarkJobCompleteResponse> call, Response<MarkJobCompleteResponse> response) {
-                if (!response.isSuccessful()){
+                if (!response.isSuccessful()) {
 
-                }else{
+                } else {
                     //Post posts = response.body();
                     jobButton.setBackgroundResource(R.drawable.job_done_button_bg);
                 }
@@ -178,13 +206,53 @@ public class JobListPage extends AppCompatActivity {
         });
     }
 
-    private void noButtonsClicked(String jobName, int refreshRate, String jobId){
+    private void removeJob(String groupId, String jobId){
+        removeJobBtn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://192.168.1.146:8080/demo-0.0.1-SNAPSHOT/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+                if (isOwner){
+                    // userId = "00";
+                }
+                Call<RemoveJobResponse> call = jsonPlaceHolderApi.removeJob(groupId, jobId);
+                call.enqueue(new Callback<RemoveJobResponse>() {
+                    @Override
+                    public void onResponse(Call<RemoveJobResponse> call, Response<RemoveJobResponse> response) {
+                        if (!response.isSuccessful()) {
+                        } else {
+                            if (response != null) {
+                                Log.d("Logs", "onResponse: " + response.body());
+
+                            }else{
+                                // errorText.setText("No results found");
+
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<RemoveJobResponse> call, Throwable t) {
+                        //errorText.setText("No results found");
+                    }
+                });
+            }
+        });
+    }
+
+    private void noButtonsClicked(String jobName, int refreshRate, String jobId, BigDecimal jobPrice, String jobStatus){
         Intent descriptionIntent = new Intent(JobListPage.this, JobTaskActivity.class);
         //  descriptionIntent.putExtra("jobTaskDescription", needsDescriptionMap);
-        descriptionIntent.putExtra("jobName", jobName);
-        descriptionIntent.putExtra("refreshRate", refreshRate);
-        descriptionIntent.putExtra("jobId", jobId);
-        saveData(jobId);
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("jobName", jobName);
+        editor.putInt("refreshRate", refreshRate);
+        editor.putString("jobId", jobId);
+        editor.putFloat("jobPrice", jobPrice.floatValue());
+        editor.putString("jobStatus", jobStatus);
+        editor.apply();
         startActivity(descriptionIntent);
     }
 
@@ -201,6 +269,8 @@ public class JobListPage extends AppCompatActivity {
         editor.putString("jobId", jobId);
         editor.apply();
     }
+
+
 
 
 }

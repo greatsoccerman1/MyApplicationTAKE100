@@ -40,7 +40,7 @@ public class LoginScreen extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://demoapp.hopto.org:8443/demo/")
+                        .baseUrl("http://192.168.1.146:8080/demo-0.0.1-SNAPSHOT/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
@@ -73,8 +73,8 @@ public class LoginScreen extends AppCompatActivity {
         });
 
         setupRegisterbutton(registerButton);
-        userNameView.setText("1");
-        passwordView.setText("1");
+       // userNameView.setText("1");
+        //passwordView.setText("1");
     }
 
     @Override

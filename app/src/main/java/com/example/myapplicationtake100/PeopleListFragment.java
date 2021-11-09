@@ -55,7 +55,7 @@ public class PeopleListFragment extends Fragment {
 
     public void getGroupMembersResponse(String groupId){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://demoapp.hopto.org:8443/demo/")
+                .baseUrl("http://192.168.1.146:8080/demo-0.0.1-SNAPSHOT/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

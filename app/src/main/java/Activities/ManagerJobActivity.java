@@ -1,9 +1,9 @@
 package Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplicationtake100.JsonPlaceHolderApi;
 import com.example.myapplicationtake100.R;
@@ -26,7 +26,7 @@ public class ManagerJobActivity extends AppCompatActivity {
         loadData();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://demoapp.hopto.org:8443/demo/")
+                .baseUrl("http://192.168.1.146:8080/demo-0.0.1-SNAPSHOT/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

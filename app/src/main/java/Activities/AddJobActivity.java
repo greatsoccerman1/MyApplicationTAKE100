@@ -37,7 +37,7 @@ public class AddJobActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_job);
         jobName = findViewById(R.id.jobName);
         addJob = findViewById(R.id.addJobBtn);
-        jobPrice = findViewById(R.id.jobPriceTV);
+        jobPrice = findViewById(R.id.priceTV);
         refreshRateSpinner = findViewById(R.id.refreshRateSpinner);
         refreshRateDaysView = findViewById(R.id.jobRefreshRateDays);
         refreshRateMonthsView = findViewById(R.id.jobRefreshRateMonths);
@@ -51,7 +51,7 @@ public class AddJobActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://demoapp.hopto.org:8443/demo/")
+                        .baseUrl("http://192.168.1.146:8080/demo-0.0.1-SNAPSHOT/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 

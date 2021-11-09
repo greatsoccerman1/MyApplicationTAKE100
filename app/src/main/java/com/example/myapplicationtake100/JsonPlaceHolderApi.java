@@ -10,6 +10,7 @@ import Models.MarkJobCompleteRequest;
 import Models.MarkJobCompleteResponse;
 import Models.RegisterNewAccountRequest;
 import Models.RegisterNewAccountResponse;
+import Models.RemoveJobResponse;
 import Models.RemoveNeed;
 import Models.addPersonRequest;
 import Models.addTaskResponse;
@@ -49,7 +50,7 @@ public interface JsonPlaceHolderApi {
     @POST ("user/markJobComplete/")
     Call<MarkJobCompleteResponse> markJobComplete(@Body MarkJobCompleteRequest markJobCompleteRequest);
 
-    @POST ("users/registerNewAccount/")
+    @POST ("users/http://192.168.1.146:8080/demo-0.0.1-SNAPSHOT/Account/")
     Call<RegisterNewAccountResponse> addNewAccount(@Body RegisterNewAccountRequest registerNewAccountRequest);
 
     @POST ("users/addJob/")
@@ -57,4 +58,7 @@ public interface JsonPlaceHolderApi {
 
     @POST ("users/addTask/")
     Call<addTaskResponse> addNewTask(@Body AddTaskRequest addTaskRequest);
+
+    @POST ("users/removeJob/{groupId}/{jobId}")
+    Call<RemoveJobResponse> removeJob(@Path("groupId")String groupId, @Path("jobId")String jobId);
 }
