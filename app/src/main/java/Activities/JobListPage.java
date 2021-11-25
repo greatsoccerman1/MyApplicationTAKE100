@@ -37,8 +37,8 @@ public class JobListPage extends AppCompatActivity {
     private String whichButtonIsClicked = "None";
     public static final String SHARED_PREFS = "sharedPrefs";
     private Button addJobBtn, markJobCompleteBtn, removeJobBtn, markJobIncompleteBtn;
+    private Jobs mainJobs = new Jobs();
     private int refreshRate;
-    private BigDecimal jobPrice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,12 +57,13 @@ public class JobListPage extends AppCompatActivity {
     }
 
     private void setupJobInCompleteBtn(Button markJobIncompleteBtn, Button markJobCompleteBtn) {
-        markJobCompleteBtn.setOnClickListener(new View.OnClickListener() {
+        markJobIncompleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 whichButtonIsClicked = "MarkInComplete";
                 markJobIncompleteBtn.setBackgroundColor(Color.argb(255, 0,255,0));
                 markJobCompleteBtn.setBackgroundColor(Color.argb(255, 255,0,255));
+                populateTable(mainJobs, "DONE");
             }
         });
     }
@@ -74,6 +75,7 @@ public class JobListPage extends AppCompatActivity {
               whichButtonIsClicked = "MarkComplete";
               markJobCompleteBtn.setBackgroundColor(Color.argb(255, 0,255,0));
               markJobIncompleteBtn.setBackgroundColor(Color.argb(255, 255,0,255));
+                populateTable(mainJobs, "NOT DONE");
             }
         });
     }
@@ -93,7 +95,7 @@ public class JobListPage extends AppCompatActivity {
 
     public void populateJobLayout(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.146:8080/demo-0.0.1-SNAPSHOT/")
+                .baseUrl("http://demoapp.hopto.org:80/demo-0.0.1-SNAPSHOT/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -109,7 +111,9 @@ public class JobListPage extends AppCompatActivity {
                 } else {
                     if (response != null) {
                         Log.d("Logs", "onResponse: " + response.body());
-                       populateTable(response.body());
+                        mainJobs = response.body();
+                       populateTable(mainJobs, "NOT DONE");
+
                     }else{
                        // errorText.setText("No results found");
 
@@ -125,8 +129,9 @@ public class JobListPage extends AppCompatActivity {
 
 
 
-    public void populateTable(Jobs jobs){
+    public void populateTable(Jobs jobs, String filter){
         jobScrollView =  findViewById(R.id.groupMemberListLayout);
+        jobScrollView.removeAllViews();
 
         //populating buttons with job names
         for (int i = 0; i < jobs.getJobInfo().size(); i++){
@@ -134,7 +139,7 @@ public class JobListPage extends AppCompatActivity {
             int refreshRate = jobs.getJobInfo().get(i).getRefreshRate();
             String jobId = jobs.getJobInfo().get(i).getJobId();
             String jobStatus = jobs.getJobInfo().get(i).getJobStatus();
-            jobPrice = jobs.getJobInfo().get(i).getJobPrice();
+            BigDecimal jobPrice = jobs.getJobInfo().get(i).getJobPrice();
             Button jobButton = new Button(this);
 
             if (jobStatus.equals("NOT DONE")) {
@@ -154,10 +159,13 @@ public class JobListPage extends AppCompatActivity {
                             noButtonsClicked(jobName, refreshRate, jobId, jobPrice, jobStatus);
                             break;
                         case "MarkComplete":
-                            markJobComplete(jobId, refreshRate, jobButton);
+                            markJobComplete(jobId, refreshRate, jobButton, jobPrice, "DONE");
                             break;
                         case "MarkNeedsWork":
                             markNeedsWork(jobId);
+                            break;
+                        case "MarkInComplete":
+                            markJobComplete(jobId, refreshRate, jobButton, jobPrice, "NOT DONE");
                             break;
                    /*     case "RemoveJob":
                             removeJob(groupId, jobId);
@@ -167,7 +175,10 @@ public class JobListPage extends AppCompatActivity {
                 }
             });
             jobButton.setText(jobName);
-            jobScrollView.addView(jobButton);
+            if (jobStatus.equals(filter)){
+                jobScrollView.addView(jobButton);
+            }
+
         }
     }
 
@@ -175,9 +186,9 @@ public class JobListPage extends AppCompatActivity {
 
     }
 
-    private void markJobComplete(String jobId, int refreshRate, Button jobButton) {
+    private void markJobComplete(String jobId, int refreshRate, Button jobButton, BigDecimal price, String jobStatus) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.146:8080/demo-0.0.1-SNAPSHOT/")
+                .baseUrl("http://demoapp.hopto.org:80/demo-0.0.1-SNAPSHOT/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -185,6 +196,9 @@ public class JobListPage extends AppCompatActivity {
         markJobCompleteRequest.setJobId(jobId);
         markJobCompleteRequest.setGroupId(groupId);
         markJobCompleteRequest.setRefreshRate(refreshRate);
+        markJobCompleteRequest.setPrice(price);
+        markJobCompleteRequest.setPersonId(userId);
+        markJobCompleteRequest.setJobStatus(jobStatus);
 
         JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
         Call<MarkJobCompleteResponse> call = jsonPlaceHolderApi.markJobComplete(markJobCompleteRequest);
@@ -210,7 +224,7 @@ public class JobListPage extends AppCompatActivity {
         removeJobBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://192.168.1.146:8080/demo-0.0.1-SNAPSHOT/")
+                        .baseUrl("http://demoapp.hopto.org:80/demo-0.0.1-SNAPSHOT/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 

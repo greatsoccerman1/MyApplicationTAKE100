@@ -13,6 +13,11 @@
         android:theme="@style/Theme.MyApplicationTAKE100"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".addGroupActivity"
+            android:exported="true"
+            android:label="@string/title_activity_add_group"
+            android:theme="@style/Theme.MyApplicationTAKE100.NoActionBar" />
+        <activity
             android:name="Activities.InventoryActivity"
             android:exported="true" />
         <activity

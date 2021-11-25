@@ -26,4 +26,5 @@
         <item>NOT DONE</item>
         <item>DONE</item>
     </string-array>
+    <string name="title_activity_add_group">addGroupActivity</string>
 </resources>

@@ -30,7 +30,7 @@ public class JobInfo extends Fragment {
         loadData();
         jobNameTV.setText(jobName);
         priceTV.setText(jobPrice.toString());
-        refreshTV.setText(refreshRate);
+       // refreshTV.setText(refreshRate);
         statusTV.setText(jobStatus);
 
         return v;
@@ -40,7 +40,7 @@ public class JobInfo extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         jobName = sharedPreferences.getString("jobName", "");
         jobId = sharedPreferences.getString("jobId", "");
-        jobStatus = sharedPreferences.getString("jobSatus", "");
+        jobStatus = sharedPreferences.getString("jobStatus", "");
         jobPrice = new BigDecimal(sharedPreferences.getFloat("jobPrice", 0));
         refreshRate = sharedPreferences.getInt("refreshRate", 0);
     }

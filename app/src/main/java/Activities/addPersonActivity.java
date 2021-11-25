@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class addPersonActivity extends AppCompatActivity {
 
-    TextView firstName, lastName;
+    TextView firstName, lastName,userName;
     Button addPersonBtn;
     private String userId, groupId;
 
@@ -33,6 +33,7 @@ public class addPersonActivity extends AppCompatActivity {
         firstName = findViewById(R.id.addPersonFirstName);
         //newPersonNeed = findViewById(R.id.addPersonNeed);
         addPersonBtn = findViewById(R.id.addPersonBtn);
+        userName = findViewById(R.id.addPersonUserName);
         loadData();
         setAddPersonBtn(addPersonBtn);
 
@@ -47,9 +48,10 @@ public class addPersonActivity extends AppCompatActivity {
             addPerson.setFirstName(firstName.getText().toString());
             addPerson.setLastName(lastName.getText().toString());
             addPerson.setGroupId(groupId);
+            addPerson.setUserName(userName.getText().toString());
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.1.146:8080/demo-0.0.1-SNAPSHOT/")
+                    .baseUrl("http://demoapp.hopto.org:80/demo-0.0.1-SNAPSHOT/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 

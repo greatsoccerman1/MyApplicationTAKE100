@@ -1,7 +1,5 @@
 package Models;
 
-import java.math.BigDecimal;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,11 +13,5 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class MarkJobCompleteRequest {
-    private String jobId;
-    private String groupId;
-    private int refreshRate;
-    private BigDecimal price;
-    private String personId;
-    private String jobStatus;
+public class AddGroupResponse {
 }

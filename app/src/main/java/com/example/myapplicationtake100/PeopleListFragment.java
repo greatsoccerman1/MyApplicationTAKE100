@@ -55,7 +55,7 @@ public class PeopleListFragment extends Fragment {
 
     public void getGroupMembersResponse(String groupId){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.146:8080/demo-0.0.1-SNAPSHOT/")
+                .baseUrl("http://demoapp.hopto.org:80/demo-0.0.1-SNAPSHOT/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -67,7 +67,7 @@ public class PeopleListFragment extends Fragment {
         call.enqueue(new Callback<getGroupMembersResponse>() {
             @Override
             public void onResponse(Call<getGroupMembersResponse> call, Response<getGroupMembersResponse> response) {
-                if (!response.isSuccessful()) {
+                    if (!response.isSuccessful()) {
 
                 } else {
                     if (response != null) {
@@ -105,7 +105,7 @@ public class PeopleListFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("firstName", resp.getFirstName());
         editor.putString("lastName", resp.getLastName());
-        editor.putString("memberId", resp.getMemberId());
+        editor.putString("getInfoForPersonId", resp.getMemberId());
 
         editor.apply();
     }

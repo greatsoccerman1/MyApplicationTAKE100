@@ -20,7 +20,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/need_fragment_place"
-        android:name="com.example.myapplicationtake100.TaskListFragment"
+        android:name="com.example.myapplicationtake100.JobInfo"
         android:layout_width="329dp"
         android:layout_height="463dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,22 +37,22 @@
         android:text="Tasks"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintHorizontal_bias="0.164"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/personNeedsLayout"
-        app:layout_constraintVertical_bias="0.802" />
+        app:layout_constraintVertical_bias="0.844" />
 
     <Button
         android:id="@+id/addTaskBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Task"
+        android:text="Add Task2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.765"
+        app:layout_constraintHorizontal_bias="0.775"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/personNeedsLayout"
-        app:layout_constraintVertical_bias="0.802" />
+        app:layout_constraintVertical_bias="0.844" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

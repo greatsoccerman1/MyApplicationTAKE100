@@ -3,6 +3,8 @@ package com.example.myapplicationtake100;
 import Models.AddJobRequest;
 import Models.AddJobResponse;
 import Models.AddTaskRequest;
+import Models.GetGroupMemberInfoRequest;
+import Models.GetGroupMemberInfoResponse;
 import Models.GetTasksRequest;
 import Models.JobTasksResponse;
 import Models.Jobs;
@@ -50,7 +52,7 @@ public interface JsonPlaceHolderApi {
     @POST ("user/markJobComplete/")
     Call<MarkJobCompleteResponse> markJobComplete(@Body MarkJobCompleteRequest markJobCompleteRequest);
 
-    @POST ("users/http://192.168.1.146:8080/demo-0.0.1-SNAPSHOT/Account/")
+    @POST ("users/registerNewAccount")
     Call<RegisterNewAccountResponse> addNewAccount(@Body RegisterNewAccountRequest registerNewAccountRequest);
 
     @POST ("users/addJob/")
@@ -61,4 +63,7 @@ public interface JsonPlaceHolderApi {
 
     @POST ("users/removeJob/{groupId}/{jobId}")
     Call<RemoveJobResponse> removeJob(@Path("groupId")String groupId, @Path("jobId")String jobId);
+
+    @POST("user/getGroupMemberInfo")
+    Call<GetGroupMemberInfoResponse> getGroupMemberInfo(@Body GetGroupMemberInfoRequest req);
 }

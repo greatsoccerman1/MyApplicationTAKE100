@@ -29,6 +29,7 @@ public class groupActivity extends AppCompatActivity {
     public static final String userIdSaved = "userId";
     public static final String groupIdSaved = "groupId";
     public static final String isOwnerSaved = "isOwner";
+    private Button newGroupBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,8 @@ public class groupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_group);
         groupLayout = findViewById(R.id.groupLayout);
         groupInfoList = (ArrayList<groupInfo>) getIntent().getExtras().getSerializable("groupInfo");
+        newGroupBtn = findViewById(R.id.newGroupBtn);
+        setupNewGroupBtn(newGroupBtn);
         String userId = getIntent().getExtras().get("userId").toString();
 
        //groupHashmap = (HashMap<String,String>)getIntent().getExtras().getSerializable("groups");
@@ -43,13 +46,13 @@ public class groupActivity extends AppCompatActivity {
             for (int i = 0; i < groupInfoList.size(); i++) {
                 Button button = new Button(this);
                 button.setText(groupInfoList.get(i).getGroupName());
-                String ownerId = groupInfoList.get(i).getGroupOwnerId();
+                String role = groupInfoList.get(i).getRole();
                 String groupId = groupInfoList.get(i).getGroupCode();
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent i = null;
-                        if (userId.equals(ownerId)) {
+                        if (role.equals("admin")) {
                             isOwner = true;
                             i = new Intent(groupActivity.this, ManagerPage.class);
                         } else {
@@ -78,6 +81,15 @@ public class groupActivity extends AppCompatActivity {
 
             alert1.show();
         }
+    }
+
+    private void setupNewGroupBtn(Button newGroupBtn) {
+        newGroupBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     public void saveData(String userId, String groupId, boolean isOwner){

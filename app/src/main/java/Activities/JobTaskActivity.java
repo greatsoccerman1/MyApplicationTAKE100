@@ -68,7 +68,7 @@ public class JobTaskActivity extends AppCompatActivity {
 
     private void markJobComplete() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.146:8080/demo-0.0.1-SNAPSHOT/")
+                .baseUrl("http://demoapp.hopto.org:80/demo-0.0.1-SNAPSHOT/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
