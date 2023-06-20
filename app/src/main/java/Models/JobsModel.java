@@ -3,18 +3,31 @@ package Models;
 import androidx.lifecycle.ViewModel;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 
 public class JobsModel extends ViewModel implements Serializable {
     private String jobName;
     private List<JobTasks> jobTask;
     private String jobMongoId;
 
-    public JobsModel(String name, List<JobTasks> Task, String mongoId) {
+    private String jobId;
+
+    private String jobStatus;
+   private BigDecimal jobPrice;
+
+    public JobsModel(String name, List<JobTasks> Task, String mongoId, String jobId, String jobStatus) {
         this.jobName = name;
         this.jobTask = Task;
         this.jobMongoId = mongoId;
+        this.jobId = jobId;
+        this.jobStatus = jobStatus;
     }
 
 

@@ -40,28 +40,32 @@ public class EmployeeActivity extends AppCompatActivity  {
         errorText = findViewById(R.id.errorText);
         setJobsButton(jobsButton);
         setAddButton(addButton);
+        errorText.setText("setting text");
         loadData();
     }
 
     private void setAddButton(Button addButton){
             //ToDo allow employees to send request to add new jobs to the manager. This should be able to be turned on and off.
+        addButton.setOnClickListener(v -> errorText.setText("Add Button clicked"));
     }
 
     private void setJobsButton(Button jobsButton){
-        jobsButton.setOnClickListener(v -> {
+            jobsButton.setOnClickListener(v -> {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.1.180:8080/demo/")
+                    .baseUrl("http://149.115.2.24:80/demo-0.0.1-SNAPSHOT/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
-            JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+         JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
             Call<Jobs> call = jsonPlaceHolderApi.getJobs(groupId, userId);
             call.enqueue(new Callback<Jobs>() {
                 @Override
                 public void onResponse(Call<Jobs> call, Response<Jobs> response) {
                     if (!response.isSuccessful()) {
+                        errorText.setText(groupId + " : " + userId);
                     } else {
                         if (response != null) {
+                            errorText.setText("response: " + response);
                             Intent i = new Intent(EmployeeActivity.this, JobListPage.class);
                             i.putExtra("jobs", (Serializable) response.body());
                             startActivity(i);

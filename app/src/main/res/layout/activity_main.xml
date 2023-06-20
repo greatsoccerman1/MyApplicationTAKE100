@@ -71,7 +71,7 @@
         android:id="@+id/addButton"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:text="Add"
+        android:text="Add Job"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

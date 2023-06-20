@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import Activities.JobTaskActivity;
 import Models.RemoveNeed;
+import Models.changeJobStatusResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -116,10 +117,10 @@ public class JobDescptionFragment extends Fragment {
                         .build();
 
                 JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-                Call<RemoveNeed> call = jsonPlaceHolderApi.markJobComplete(mongoId);
-                call.enqueue(new Callback<RemoveNeed>() {
+                Call<changeJobStatusResponse> call = jsonPlaceHolderApi.markJobComplete(mongoId, null);
+                call.enqueue(new Callback<changeJobStatusResponse>() {
                     @Override
-                    public void onResponse(Call<RemoveNeed> call, Response<RemoveNeed> response) {
+                    public void onResponse(Call<changeJobStatusResponse> call, Response<changeJobStatusResponse> response) {
                         if (response.isSuccessful()){
 
                             ((JobTaskActivity)getActivity()).switchToOtherTab(new TaskListFragment());
@@ -127,7 +128,7 @@ public class JobDescptionFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<RemoveNeed> call, Throwable t) {
+                    public void onFailure(Call<changeJobStatusResponse> call, Throwable t) {
 
                     }
                 });

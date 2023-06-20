@@ -9,7 +9,7 @@ import Models.groupInfo;
 public class Post {
 
     private String userName;
-    private int userId;
+    private String userId;
     private boolean isUser;
     private ArrayList<groupInfo> groupInfo;
 

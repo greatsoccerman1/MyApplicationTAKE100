@@ -40,7 +40,7 @@ public class LoginScreen extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://192.168.1.180:8080/demo/")
+                        .baseUrl("http://149.115.2.24:80/demo-0.0.1-SNAPSHOT/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
@@ -73,8 +73,8 @@ public class LoginScreen extends AppCompatActivity {
         });
 
         setupRegisterbutton(registerButton);
-        userNameView.setText("abc");
-        passwordView.setText("123");
+        userNameView.setText("curtis");
+        passwordView.setText("curtis");
     }
 
     @Override

@@ -14,6 +14,7 @@ import com.example.myapplicationtake100.JsonPlaceHolderApi;
 import com.example.myapplicationtake100.R;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,14 +37,18 @@ public class JobListPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_list);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         loadData();
         populateJobLayout();
-
     }
 
     public void populateJobLayout(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.180:8080/demo/")
+                .baseUrl("http://149.115.2.24:80/demo-0.0.1-SNAPSHOT/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -58,7 +63,7 @@ public class JobListPage extends AppCompatActivity {
                 if (!response.isSuccessful()) {
                 } else {
                     if (response != null) {
-                        Log.d("Logs", "onResponse: " + response.body());
+                        Log.d("Logs", "onResponse: " + response.body().toString());
                        populateTable(response.body());
                     }else{
                        // errorText.setText("No results found");
@@ -77,13 +82,16 @@ public class JobListPage extends AppCompatActivity {
 
     public void populateTable(Jobs jobs){
         jobScrollView =  findViewById(R.id.groupMemberListLayout);
-
         //populating buttons with job names
         for (int i = 0; i < jobs.getJobDetails().size(); i++){
-            String jobName = jobs.getJobDetails().get(i).getJobName();
             String mongoId = jobs.getJobDetails().get(i).getJobMongoId();
+            String jobName = jobs.getJobDetails().get(i).getJobName();
+            String jobId = jobs.getJobDetails().get(i).getJobId();
+            BigDecimal jobPrice = jobs.getJobDetails().get(i).getJobPrice();
+            String jobStatus = jobs.getJobDetails().get(i).getJobStatus();
             ArrayList<String> jobDetails = new ArrayList<>();
             Button jobButton = new Button(this);
+            setButtonColor(jobButton, jobStatus);
             jobButton.setOnClickListener(new View.OnClickListener() {
                 List<JobTasks> jobForDescription = new ArrayList<>();
                 @Override
@@ -99,6 +107,10 @@ public class JobListPage extends AppCompatActivity {
                     descriptionIntent.putExtra("jobDetails", jobDetails);
                     descriptionIntent.putExtra("jobName", jobName);
                     descriptionIntent.putExtra("mongoId", mongoId);
+                    descriptionIntent.putExtra("jobId", jobId);
+                    descriptionIntent.putExtra("jobPrice", jobPrice);
+                    descriptionIntent.putExtra("jobStatus", jobStatus);
+                    descriptionIntent.putExtra("groupId", groupId);
                     descriptionIntent.putExtra("jobForDescription", (Serializable) jobForDescription);
                     startActivity(descriptionIntent);
                 }
@@ -114,6 +126,16 @@ public class JobListPage extends AppCompatActivity {
         groupId = sharedPreferences.getString("groupId", "");
         isOwner = sharedPreferences.getBoolean("isOwner", false);
 
+    }
+
+    public void setButtonColor(Button btn, String jobStatus){
+        if (jobStatus.equals("NOT DONE")){
+            btn.setBackgroundResource(R.drawable.job_not_done_button_bg);
+        }else if(jobStatus.equals("DONE")){
+            btn.setBackgroundResource(R.drawable.job_done_button_bg);
+        }else {
+            btn.setBackgroundResource(R.drawable.my_button_bg);
+        }
     }
 
 }

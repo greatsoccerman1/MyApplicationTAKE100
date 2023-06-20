@@ -4,6 +4,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,12 +82,14 @@ public class TaskListFragment extends Fragment {
         editor.putString("taskDescription", taskDescription);
         editor.putString("taskMongoId", taskMongoId);
 
+
         editor.apply();
     }
 
     public void populateJobLayout(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.180:8080/demo/")
+
+      /*  Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://149.115.2.24:80/demo-0.0.1-SNAPSHOT/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -99,9 +102,11 @@ public class TaskListFragment extends Fragment {
             @Override
             public void onResponse(Call<JobTasksResponse> call, Response<JobTasksResponse> response) {
                 if (!response.isSuccessful()) {
+                    Log.d("Logs", "task list response failed");
                     int i =0;
                 } else {
                     if (response != null) {
+                        Log.d("Logs", "task list response : " + response.body());
                         populateTask(response.body());
                     }else{
                         int i =0;
@@ -114,7 +119,7 @@ public class TaskListFragment extends Fragment {
             public void onFailure(Call<JobTasksResponse> call, Throwable t) {
                 //errorText.setText("No results found");
             }
-        });
+        });*/
     };
 
     public void loadData(){

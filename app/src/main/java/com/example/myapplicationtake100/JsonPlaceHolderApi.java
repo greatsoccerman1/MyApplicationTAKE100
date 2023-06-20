@@ -6,6 +6,7 @@ import Models.RegisterNewAccountRequest;
 import Models.RegisterNewAccountResponse;
 import Models.RemoveNeed;
 import Models.addPersonRequest;
+import Models.changeJobStatusResponse;
 import Models.getGroupMembersResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -23,7 +24,7 @@ public interface JsonPlaceHolderApi {
     @GET("users/{username}/{password}")
         Call<Post> getPosts(@Path("username") String userName, @Path("password") String password);
 
-    @GET("users/group/{groupId}/{personId}")
+    @GET("users/jobs/{groupId}/{personId}")
     Call<Jobs> getJobs(@Path("groupId") String groupId, @Path("personId") String personId);
 
     @GET("users/tasks/{groupId}/{personId}")
@@ -39,8 +40,8 @@ public interface JsonPlaceHolderApi {
     @GET ("users/getGroupMembers/{groupId}")
     Call<getGroupMembersResponse> getGroupMembers(@Path("groupId") String groupId);
 
-    @POST ("user/markJobComplete/{mongoId}")
-    Call<RemoveNeed> markJobComplete(@Path("groupId") String groupId);
+    @POST ("user/markJobComplete/{groupId}/{jobId}")
+    Call<changeJobStatusResponse> markJobComplete(@Path("groupId") String groupId, @Path("jobId") String jobId);
 
     @POST ("users/registerNewAccount/")
     Call<RegisterNewAccountResponse> addNewAccount(@Body RegisterNewAccountRequest registerNewAccountRequest);
